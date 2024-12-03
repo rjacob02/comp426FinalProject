@@ -47,6 +47,17 @@ app.post('/user', async (req, res) => {
   res.status(201).json(user.json());
 })
 
+app.post('/user', async (req, res) => {
+  let user = await User.create(req.body);
+
+  if (!user) {
+    res.status(400).send("Bad request");
+    return;
+  }
+
+  res.status(201).json(user.json());
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
