@@ -5,29 +5,33 @@ export class DiaryItem {
     #id
     #date
     #title
-    #body
+    #text
     
     static #next_id = 1;
 
-    constructor(id, date, title, body) {
+    constructor(id, date, title, text) {
         this.#id = id;
         this.#date = date;
         this.#title = title;
-        this.#body = body;
+        this.#text = text;
     }
 
     static async create(data) {
-        if ((data !== undefined) && (data instanceof Object)
+        console.log(data);
+        console.log(data !== undefined);
+        if ((data !== undefined) && (typeof data == 'object')
         && (data.title !== undefined) && (typeof data.title == 'string')
-        && (data.body !== undefined) && (data.date !== undefined)) {
+        && (data.text !== undefined) && (data.date !== undefined)) {
+            console.log("Eneters");
             try {
                 let db_result = await db.run(
                     'INSERT INTO entries (date, title, body) VALUES (?, ?, ?)', 
                     data.date, 
                     data.title, 
-                    data.body
+                    data.text
                 );
-                let entry = new DiaryItem(db_result.lastId, data.date, data.title, data.body);
+                console.log("DB RES" + JSON.stringify(db_result));
+                let entry = new DiaryItem(db_result.lastId, data.date, data.title, data.text);
                 return entry;
             } catch (e) {
                 console.log(e);
@@ -66,7 +70,7 @@ export class DiaryItem {
             id: this.#id,
             date: this.#date,
             title: this.#title,
-            body: this.#body
+            text: this.#text
         }
     }
 }

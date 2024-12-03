@@ -25,6 +25,10 @@ componentDidMount() {
 }
 
 fetchEntries = async () => {
+<<<<<<< HEAD
+=======
+    console.log('hello');
+>>>>>>> f4fe951 (implement post and get)
     const config = {
         headers: {
             "Access-Control-Allow-Origin": "*",
