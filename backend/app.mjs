@@ -1,24 +1,36 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import { DiaryItem } from './diaryItem.mjs';
 
 const app = express();
-const port = 3001;
-
-let diaryItems = [];
+const port = 3000;
 
 app.use(bodyParser.json());
 
 // fetch current diary items
-app.get('/diary', (req, res) => {
-  res.json(diaryItems);
+app.get('/diary', async (req, res) => {
+  let rows = await DiaryItem.getAllEntryIds();
+
+  if (!rows) {
+    res.status(400).send("Bad request");
+    return;
+  }
+
+  res.status(201).json(rows);
 });
 
 // create a new diary item
-app.post('api/diary', (req, res) => {
-  const { id, date, title, body } = req.body;
-  const newItem = { id, date, title, body};
-  diaryItems.push(newItem);
-  res.status(201).json(newItem);
+app.post('/diary', async (req, res) => {
+  console.log("BODY" + req.body);
+  let entry = await DiaryItem.create(req.body);
+  console.log("ENTRY" + entry);
+
+  if (!entry) {
+    res.status(400).send("Bad request");
+    return;
+  }
+
+  res.status(201).json(entry.json());
 })
 
 // delete
