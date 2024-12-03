@@ -8,12 +8,9 @@
 }
 
 body {
-  background-color: #d4e7cd;  /* Very light gray background */
-
+  background-color: #d4e7cd;
   padding: 30px;
-  
 }
-
 
 .grid-container {
   display: grid;
@@ -33,12 +30,13 @@ body {
   padding-bottom: 32px;
   outline: 2px solid rgba(213, 239, 208, 0.757);
   overflow: scroll;
+  animation: appear 3s;
 }
 
 h1 {
   margin: 32px;
   font-size: 33px;
-  color: #2E4053;  /* Dark blue-gray for the title */
+  color: #2E4053;
 }
 
 .complete {
@@ -50,16 +48,16 @@ h1 {
 }
 
 .diary-quote p {
-  margin-top: 0;  /* Remove space above */
-  margin-bottom: 5px;  /* Adjust space below */
+  margin-top: 0;
+  margin-bottom: 5px;
 }
 
 .diary-quote {
   font-style: italic;
-  color: #99653a;  /* Muted terracotta for the quote */
+  color: #99653a;
   margin-left: 50px;
   margin-right: 50px;
-  margin-bottom: 40px;  /* Adjust space below */
+  margin-bottom: 40px;
   text-align: center;
   font-size: 17px;
 }
@@ -71,8 +69,8 @@ h1 {
   border-width: 0.3px;
   height: 50px;
   width: 400px;
-  background-color: #F1F1F1;  /* Very light gray background for input fields */
-  border: 1px solid #D1D1D6;  /* Soft gray border */
+  background-color: #F1F1F1;
+  border: 1px solid #D1D1D6;
 }
 
 .diary-date-input {
@@ -82,8 +80,8 @@ h1 {
   height: 50px;
   width: 160px;
   color:rgba(84, 83, 88, 0.757); 
-  background-color: #F1F1F1;  /* Very light gray background */
-  border: 1px solid #D1D1D6;  /* Soft gray border */
+  background-color: #F1F1F1;
+  border: 1px solid #D1D1D6;
 }
 
 .diary-textarea {
@@ -92,36 +90,15 @@ h1 {
   border-radius: 4px;
   border-width: 0.5px;
   width: 571.2px;
-  background-color: #F1F1F1;  /* Very light gray background */
-  border: 1px solid #D1D1D6;  /* Soft gray border */
-}
-
-.diary-button {
-  padding: 10px;
-  font-size: 17px;
-  border: none;
-  height: 45px;
-  width: 200px;
-  border-radius: 4px;
-  margin-top: 7px;
-  cursor: pointer;
-  outline: none;
-  background: #bd926f;  /* Soft coral pink */
-  color: white;
-  text-transform: capitalize;
-  align-self: center;
-  margin-left: 30px;
-}
-
-.diary-button:hover {
-  background: #865f36;  /* Slightly darker coral pink on hover */
+  background-color: #F1F1F1;
+  border: 1px solid #D1D1D6;
 }
 
 .diary-container {
   display: flex;
   flex-direction: row;
   position: relative;
-  background-color: #e0b7a0;  /* Soft coral pink background */
+  background-color: #e0b7a0;
 }
 
 .diary-row {
@@ -132,12 +109,17 @@ h1 {
   padding: 16px;
   border-radius: 5px;
   width: 90%;
-  background: #F1F1F1;  /* Very light gray background for rows */
-  color: #2E4053;  /* Dark blue-gray for row text */
+  background: #F1F1F1;
+  color: #2E4053;
+}
+
+.start-today{
+  font-size: 20px;
+  color:#656667; 
 }
 
 .diary-row:hover {
-  background: #F7F7F7;  /* Light gray hover effect */
+  background: #F7F7F7;
 }
 
 .delete {
@@ -149,26 +131,33 @@ h1 {
   margin-right: 5px;
 }
 
-.generate-quote-button {
-  position: relative;
-  float: center;
-  width: 200px;
-  margin-top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
+.generate-quote-button,
+.diary-button {
   padding: 10px 20px;
   font-size: 16px;
-  color: #ffffff;
-  background-color: #c4b198;  /* Muted olive green */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   outline: none;
 }
 
+.diary-button {
+  background: #bd926f; 
+  margin-top: 25px;
+  color: white;
+  margin-bottom: 125px;
+}
+
+.diary-button:hover {
+  background: #a77f62; 
+}
+.generate-quote-button {
+  background-color: #ceeabf;
+  color: #4d623f;
+}
+
 .generate-quote-button:hover {
-  color: #ffffff;
-  background-color: #e3c8ac;  /* Darker muted olive green on hover */
+  background-color: #e2efd5;
 }
 
 .homepage {
@@ -182,12 +171,10 @@ h1 {
   
 }
 
-
-/* Title styling */
 .homepage-title {
   font-size: 3rem;
   color: #2c3e50;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   animation: fadeIn 3s ease-in;
 }
 
@@ -202,36 +189,30 @@ h1 {
   }
 }
 
-
-/* Subtitle styling */
 .homepage-subtitle {
   font-size: 1.25rem;
-  color: #e5e6e7; /* Dark grey text */
-  margin-bottom: 2rem;
+  color: #19426b; 
   animation: appear 3.5s ease-in;
 }
-
 
 .homepage-cta {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 1rem 0;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #19426b;
   animation: appear 3.5s ease-in;
 }
 
-
-/* Button styling */
 .start-button {
   padding: 0.75rem 1.5rem;
   font-size: 1.25rem;
   color: #fff;
-  background-color: #3498db;
+  background-color: #a2b38e;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, transform 0.2s ease;
-  background: linear-gradient(135deg, #42a5f5, #1e88e5);
+  background: linear-gradient(135deg, #82b573, #b8ce68);
   border: none;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   animation: appear 3.5s ease-in;
@@ -248,16 +229,14 @@ h1 {
 }
 
 .start-button:hover {
-  background-color: #2980b9;
+  background-color: #9edc7d;
   transform: scale(1.5);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(118, 185, 47, 0.382);
 
 }
 
-
-
 .start-button:active {
-  background-color: #1c5985;
+  background-color: #9bc07f;
   transform: scale(1);
 }
 
