@@ -1,39 +1,56 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-export default function DiaryForm({ addItem }) {
-    //functions that get called to insert the title, date, and text
-    const [title, setTitle] = useState("")
-    const [date, setDate] = useState("")
-    const [text, setText] = useState("")
-
+export default function DiaryForm({ addItem, onNewEntry }) {
+    const [title, setTitle] = useState("");
+    const [date, setDate] = useState("");
+    const [text, setText] = useState(""); 
+  
     const onSubmit = (event) => {
-        event.preventDefault() //prevents refresh, etc
-        let itemObject = {
+        event.preventDefault(); 
+
+        const itemObject = {
             title: title,
             date: date,
-            text: text,
-        }
+            text: text
+        };
 
-        addItem(itemObject) 
+        addItem(itemObject);
 
-    }
+        setTitle(""); 
+        setDate(""); 
+        setText(""); 
 
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <div className='diary-form'>
+        onNewEntry(); 
+    };
 
-            <input onChange={(event) => setTitle(event.target.value)}  placeholder='Add an Item' className='diary-input'/>
-            <input onChange={(event) => setDate(event.target.value)} type='date' className='diary-date-input' />
+    return (
+        <div>
+            <form onSubmit={onSubmit}>
+                <div className='diary-form'>
+                    <input
+                        value = {title}
+                        onChange={(event) => setTitle(event.target.value)}
+                        placeholder='Entry Title'
+                        className='diary-input'
+                    />
+                    <input
+                        value = {date}
+                        onChange={(event) => setDate(event.target.value)}
+                        type='date'
+                        className='diary-date-input'
+                    />
+                </div>
 
+                <textarea
+                    value = {text}
+                    onChange={(event) => setText(event.target.value)}
+                    rows="2"
+                    placeholder='Start typing here...'
+                    className='diary-textarea'
+                />
+
+                <button type='submit' className='diary-button'>Add Item to Diary</button>
+            </form>
         </div>
-
-        <textarea onChange={(event) => setText(event.target.value)} rows="2" className='diary-textarea' />
-
-        <button type='submit' className='diary-button' >Add Item to Diary</button>
-
-      </form>
-
-    </div>
-  )
+    );
 }
