@@ -1,78 +1,116 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import DiaryForm from '../components/DiaryForm'
-import DiaryItem from '../components/DiaryItem'
 import DiaryQuote from '../components/DiaryQuote'
-import { connect } from 'react-redux'
-import { addItem, deleteItem } from '../redux/actions'
-import { Modal } from 'react-bootstrap'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import DiaryForm from '../components/DiaryForm';
+import DiaryItem from '../components/DiaryItem';
+import { Modal } from 'react-bootstrap';
 
-export class main extends Component {
+export class Main extends Component {
     static propTypes = {
-        addItem: PropTypes.func.isRequired,
-        diaryItems: PropTypes.array.isRequired
+    diaryItems: PropTypes.array
+}
+
+constructor() {
+    super();
+    this.state = {
+        show: false,
+        activeItem: null,
+        diaryItems: []
+    };
+}
+
+componentDidMount() {
+    this.fetchEntries();
+}
+
+fetchEntries = async () => {
+    const config = {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        }
     }
-
-    constructor() {
-        super()
-        this.state = {
-            show: false,
-            activeItem: null,
-            trigger: 0,
-        };
+    try {
+        const response = await axios.get('http://localhost:3001/diary', config);
+        console.log("this is the response :)" + response);
+        this.setState({ diaryItems: response.data });
+    } catch (e) {
+        console.error("this is the error :(" + e);
     }
+}
 
-    handleNewEntry = () => {
-        this.setState((prevState) => ({
-            trigger: prevState.trigger+1, 
-        })); 
-    }; 
+addItem = async (item) => {
+    try {
+        console.log("AB TO POST: " + JSON.stringify(item));
+        const config = {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+            }
+        }
+        const response = await axios.post('http://localhost:3001/diary', item, config);
+        console.log("RES" + response);
+        this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
+    } catch (e) {
+        console.error(e);
+    }
+    
+}
 
-    render() {
+deleteItem = async (id) => {
+    const config = {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        }
+    }
+    await axios.delete(`http://localhost:3001/diary/${id}`, config);
+    this.setState({ diaryItems: this.state.diaryItems.filter(item => item.id !== id) });
+}
 
-        const { addItem, diaryItems } = this.props;
-        const { show, activeItem, trigger } = this.state;
+render() {
+    const { diaryItems, show } = this.state;
 
-        return (
-            <div>
-                <div className='grid-container'>
-
-                    {/* Left card */}
-                    <div className='diary-app'>
-                        <h1>My Journal</h1>
-                        <div>
-                            <DiaryQuote trigger={trigger}/>
-                        </div>
-                        <DiaryForm addItem={addItem} onNewEntry={this.handleNewEntry}
-                        />
-                        <div className="button-container">
-                            <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
-                        </div>
-                    </div>
-
-                    {/* Right card */}
-                    <div className='diary-app' style={{ paddingTop: 20 }}>
-                        {diaryItems.length > 0 ? (
-                            diaryItems.map((item) => {
-                                return (
-                                    <DiaryItem
-                                        deleteItem={this.props.deleteItem} 
-                                        showModal={() => this.setState({ show: true, activeItem: item })}
-                                        key={item.id}
-                                        item={item}
-                                    />
-                                )
-                            })
-                        ) : <div>
-                                <h1>No items</h1>
-                                <p class="start-today">Start journaling today!</p>
-                            </div>
-                        }
-                    </div>
-
+    return (
+        <div>
+            {/* Left card */}
+            <div className='diary-app'>
+                <h1>My Journal</h1>
+                <div>
+                    <DiaryQuote trigger={trigger}/>
                 </div>
+                <DiaryForm addItem={addItem} onNewEntry={this.handleNewEntry}
+                />
+                <div className="button-container">
+                    <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
+                </div>
+            </div>
 
-                {/* Large modal for entry info */}
+            {/* Right card */}
+            <div className='diary-app' style={{ paddingTop: 20 }}>
+                {diaryItems.length > 0 ? (
+                    diaryItems.map((item) => {
+                        return (
+                            <DiaryItem
+                                deleteItem={this.props.deleteItem} 
+                                showModal={() => this.setState({ show: true, activeItem: item })}
+                                key={item.id}
+                                item={item}
+                            />
+                        )
+                    })
+                ) : <div>
+                        <h1>No items</h1>
+                        <p class="start-today">Start journaling today!</p>
+                    </div>
+                }
+            </div>
+            <div>
+            {/* Large modal for entry info */}
                 <Modal
                     size="lg"
                     show={show}
@@ -90,19 +128,9 @@ export class main extends Component {
                     </Modal.Footer>
                 </Modal>
             </div>
-        )
+        </div>   
+        );
     }
 }
 
-const mapStateToProps = (state) => ({
-    diaryItems: state.diaryItems
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-    addItem: (item) => dispatch(addItem(item)),
-    deleteItem: (id) => dispatch(deleteItem(id))
-
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(main)
+export default Main;
