@@ -49,7 +49,7 @@ export default function DiaryForm({ addItem, onNewEntry }) {
                     className='diary-textarea'
                 />
 
-                <button type='submit' className='diary-button'>Add Item to Diary</button>
+                <button type='submit' className='diary-button'>Add Entry to Diary</button>
             </form>
         </div>
     );
