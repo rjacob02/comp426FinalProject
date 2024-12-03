@@ -11,12 +11,14 @@ export class Main extends Component {
     diaryItems: PropTypes.array
 }
 
+
 constructor() {
     super();
     this.state = {
         show: false,
         activeItem: null,
-        diaryItems: []
+        diaryItems: [],
+        trigger: 0,
     };
 }
 
@@ -24,11 +26,13 @@ componentDidMount() {
     this.fetchEntries();
 }
 
+handleNewEntry = () => {
+    this.setState((prevState) => ({
+        trigger: prevState.trigger+1, 
+    })); 
+};
+
 fetchEntries = async () => {
-<<<<<<< HEAD
-=======
-    console.log('hello');
->>>>>>> f4fe951 (implement post and get)
     const config = {
         headers: {
             "Access-Control-Allow-Origin": "*",
@@ -77,18 +81,19 @@ deleteItem = async (id) => {
 }
 
 render() {
-    const { diaryItems, show } = this.state;
+    const { addItem } = this.props;
+    const { show, activeItem, trigger, diaryItems } = this.state;
+    console.log(diaryItems);
 
     return (
-        <div>
+        <div className='grid-container'>
             {/* Left card */}
             <div className='diary-app'>
                 <h1>My Journal</h1>
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
-                <DiaryForm addItem={addItem} onNewEntry={this.handleNewEntry}
-                />
+                <DiaryForm addItem={addItem(activeItem)} onNewEntry={this.handleNewEntry}/>
                 <div className="button-container">
                     <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
                 </div>
