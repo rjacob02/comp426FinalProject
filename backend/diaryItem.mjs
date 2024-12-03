@@ -37,6 +37,21 @@ export class DiaryItem {
     
     }
 
+    static async deleteEntryById(id) {
+        if (!id || id <= 0) {
+            console.error("Invalid ID");
+            return false;
+        }
+        try {
+            const result = await db.run('DELETE FROM entries WHERE id = ?', id);
+            console.log(result);
+            return result.changes > 0; 
+        } catch (e) {
+            console.error(e);
+            return false;
+        }
+    }
+
     static async getAll() {
         try {
             let rows = await db.all('SELECT * from entries');
