@@ -1,5 +1,5 @@
 import DiaryQuote from '../components/DiaryQuote'
-import React, { Component } from 'react';
+import React, { Component, act } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import DiaryForm from '../components/DiaryForm';
@@ -26,11 +26,12 @@ componentDidMount() {
     this.fetchEntries();
 }
 
-handleNewEntry = () => {
-    this.setState((prevState) => ({
-        trigger: prevState.trigger+1, 
-    })); 
-};
+// handleNewEntry = () => {
+//     this.setState((prevState) => ({
+//         trigger: prevState.trigger+1, 
+//     })); 
+
+// };
 
 fetchEntries = async () => {
     const config = {
@@ -49,7 +50,7 @@ fetchEntries = async () => {
     }
 }
 
-addItem = async (item) => {
+addNewItem = async (item) => {
     try {
         console.log("AB TO POST: " + JSON.stringify(item));
         const config = {
@@ -81,7 +82,6 @@ deleteItem = async (id) => {
 }
 
 render() {
-    const { addItem } = this.props;
     const { show, activeItem, trigger, diaryItems } = this.state;
     console.log(diaryItems);
 
@@ -93,7 +93,12 @@ render() {
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
-                <DiaryForm addItem={addItem(activeItem)} onNewEntry={this.handleNewEntry}/>
+                <DiaryForm addItem={this.addNewItem} onNewEntry={() => { 
+                    this.setState((prevState) => ({
+                        trigger: prevState.trigger+1, 
+                    })); 
+                    this.addNewItem(activeItem);
+                }}/>
                 <div className="button-container">
                     <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
                 </div>
@@ -105,7 +110,7 @@ render() {
                     diaryItems.map((item) => {
                         return (
                             <DiaryItem
-                                deleteItem={this.props.deleteItem} 
+                                deleteItem={this.deleteItem} 
                                 showModal={() => this.setState({ show: true, activeItem: item })}
                                 key={item.id}
                                 item={item}
