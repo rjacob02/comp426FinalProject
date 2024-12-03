@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 // fetch current diary items
 app.get('/diary', async (req, res) => {
-  let rows = await DiaryItem.getAllEntryIds();
+  let rows = await DiaryItem.getAll();
 
   if (!rows) {
     res.status(400).send("Bad request");
@@ -22,9 +22,7 @@ app.get('/diary', async (req, res) => {
 
 // create a new diary item
 app.post('/diary', async (req, res) => {
-  console.log("BODY" + req.body);
   let entry = await DiaryItem.create(req.body);
-  console.log("ENTRY" + entry);
 
   if (!entry) {
     res.status(400).send("Bad request");
@@ -35,16 +33,15 @@ app.post('/diary', async (req, res) => {
 })
 
 // delete
-
-app.post('/user', async (req, res) => {
-  let user = await User.create(req.body);
-
-  if (!user) {
-    res.status(400).send("Bad request");
-    return;
-  }
-
-  res.status(201).json(user.json());
+app.delete('/diary/:id', async (req, res) => {
+  console.log("ENDPOINT");
+  const item = await DiaryItem.deleteEntryById(req.params.id)
+  console.log(item);
+  if (!item) {
+      res.status(404).send("Entry not found");
+      return;
+  } 
+  res.json(true);
 })
 
 app.post('/user', async (req, res) => {
