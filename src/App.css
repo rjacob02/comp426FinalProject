@@ -9,8 +9,11 @@
 
 body {
   background-color: #d4e7cd;  /* Very light gray background */
+
   padding: 30px;
+  
 }
+
 
 .grid-container {
   display: grid;
@@ -167,3 +170,94 @@ h1 {
   color: #ffffff;
   background-color: #e3c8ac;  /* Darker muted olive green on hover */
 }
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding-bottom: 100;
+  
+}
+
+
+/* Title styling */
+.homepage-title {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  animation: fadeIn 3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(-500px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+
+/* Subtitle styling */
+.homepage-subtitle {
+  font-size: 1.25rem;
+  color: #e5e6e7; /* Dark grey text */
+  margin-bottom: 2rem;
+  animation: appear 3.5s ease-in;
+}
+
+
+.homepage-cta {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 1rem 0;
+  animation: appear 3.5s ease-in;
+}
+
+
+/* Button styling */
+.start-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.25rem;
+  color: #fff;
+  background-color: #3498db;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  background: linear-gradient(135deg, #42a5f5, #1e88e5);
+  border: none;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  animation: appear 3.5s ease-in;
+  
+}
+
+@keyframes appear {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.start-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.5);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.start-button:active {
+  background-color: #1c5985;
+  transform: scale(1);
+}
+
