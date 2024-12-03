@@ -24,18 +24,52 @@ componentDidMount() {
 }
 
 fetchEntries = async () => {
-    const response = await axios.get('http://localhost:3001/diary');
-    this.setState({ diaryItems: response.data });
+    console.log('hello');
+    const config = {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        }
+    }
+    try {
+        const response = await axios.get('http://localhost:3001/diary', config);
+        console.log("this is the response :)" + response);
+        this.setState({ diaryItems: response.data });
+    } catch (e) {
+        console.error("this is the error :(" + e);
+    }
 }
 
 addItem = async (item) => {
-    const response = await axios.post('http://localhost:3001/diary', item);
-    this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
+    try {
+        console.log("AB TO POST: " + JSON.stringify(item));
+        const config = {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+                "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+            }
+        }
+        const response = await axios.post('http://localhost:3001/diary', item, config);
+        console.log("RES" + response);
+        this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
+    } catch (e) {
+        console.error(e);
+    }
+    
 }
 
 deleteItem = async (id) => {
-    await axios.delete(`http://localhost:3001/diary/${id}`);
-    this.setState({ diaryItems: this.state.diaryItems.filter(item => item._id !== id) });
+    const config = {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+        }
+    }
+    await axios.delete(`http://localhost:3001/diary/${id}`, config);
+    this.setState({ diaryItems: this.state.diaryItems.filter(item => item.id !== id) });
 }
 
 render() {

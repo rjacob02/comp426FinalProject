@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { DiaryItem } from './diaryItem.mjs';
 import { User } from './user.mjs';
 
@@ -7,6 +8,13 @@ const app = express();
 const port = 3001;
 
 app.use(bodyParser.json());
+
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  methods: ['GET', 'POST', 'DELETE'], 
+  credentials: true, 
+};
+app.use(cors(corsOptions));
 
 // fetch current diary items
 app.get('/diary', async (req, res) => {
@@ -20,10 +28,14 @@ app.get('/diary', async (req, res) => {
   res.status(201).json(rows);
 });
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // create a new diary item
 app.post('/diary', async (req, res) => {
+  console.log("BODY" + req.body);
   let entry = await DiaryItem.create(req.body);
 
+  console.log("ENTRY" + JSON.stringify(entry));
   if (!entry) {
     res.status(400).send("Bad request");
     return;
