@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Garamond&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-    'Lucida Sans', Arial, sans-serif
+  font-family: 'Garamond', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
-  background-color: #6b7caa;
+  background-color: #d4e7cd;  /* Very light gray background */
   padding: 30px;
 }
 
@@ -29,13 +28,14 @@ body {
   margin: 128px auto;
   border-radius: 10px;
   padding-bottom: 32px;
-  outline: 2px solid rgba (0, 0, 0, 0.1);
+  outline: 2px solid rgba(213, 239, 208, 0.757);
   overflow: scroll;
 }
 
 h1 {
   margin: 32px;
   font-size: 33px;
+  color: #2E4053;  /* Dark blue-gray for the title */
 }
 
 .complete {
@@ -46,12 +46,19 @@ h1 {
   margin-bottom: 32px;
 }
 
+.diary-quote p {
+  margin-top: 0;  /* Remove space above */
+  margin-bottom: 5px;  /* Adjust space below */
+}
+
 .diary-quote {
-  font-style: italic; 
-  color: rgb(111, 118, 150); 
+  font-style: italic;
+  color: #99653a;  /* Muted terracotta for the quote */
   margin-left: 50px;
-  margin-right: 50px; 
-  text-align: center; 
+  margin-right: 50px;
+  margin-bottom: 40px;  /* Adjust space below */
+  text-align: center;
+  font-size: 17px;
 }
 
 .diary-input {
@@ -61,23 +68,29 @@ h1 {
   border-width: 0.3px;
   height: 50px;
   width: 400px;
-  outline: 2px solid rgba (0, 0, 0, 0.1);
+  background-color: #F1F1F1;  /* Very light gray background for input fields */
+  border: 1px solid #D1D1D6;  /* Soft gray border */
 }
 
 .diary-date-input {
   border-radius: 4px;
-  border-width: 0.3px; 
+  border-width: 0.3px;
   padding: 5px;
   height: 50px;
-  width: 160px; 
+  width: 160px;
+  color:rgba(84, 83, 88, 0.757); 
+  background-color: #F1F1F1;  /* Very light gray background */
+  border: 1px solid #D1D1D6;  /* Soft gray border */
 }
 
 .diary-textarea {
   padding: 14px 32px 14px 16px;
   margin-top: -15px;
   border-radius: 4px;
-  border-width: 0.5px; 
-  width: 90%;
+  border-width: 0.5px;
+  width: 571.2px;
+  background-color: #F1F1F1;  /* Very light gray background */
+  border: 1px solid #D1D1D6;  /* Soft gray border */
 }
 
 .diary-button {
@@ -90,17 +103,22 @@ h1 {
   margin-top: 7px;
   cursor: pointer;
   outline: none;
-  background: rgb(45, 65, 114);
+  background: #bd926f;  /* Soft coral pink */
   color: white;
   text-transform: capitalize;
   align-self: center;
   margin-left: 30px;
 }
 
+.diary-button:hover {
+  background: #865f36;  /* Slightly darker coral pink on hover */
+}
+
 .diary-container {
   display: flex;
   flex-direction: row;
   position: relative;
+  background-color: #e0b7a0;  /* Soft coral pink background */
 }
 
 .diary-row {
@@ -111,9 +129,12 @@ h1 {
   padding: 16px;
   border-radius: 5px;
   width: 90%;
-  box-shadow: 0px 10px 15px 15px rgba(0,0,0,0.1);
-  background: black;
-  color: white
+  background: #F1F1F1;  /* Very light gray background for rows */
+  color: #2E4053;  /* Dark blue-gray for row text */
+}
+
+.diary-row:hover {
+  background: #F7F7F7;  /* Light gray hover effect */
 }
 
 .delete {
@@ -126,24 +147,23 @@ h1 {
 }
 
 .generate-quote-button {
-  position: relative; 
-  float: center; 
-  width: 200px; 
-  margin-top: 100px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  padding: 10px 20px; 
-  font-size: 16px; 
-  color: #333; 
-  background-color: #e5e6f7; /* Light grey background */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded edges */
-  cursor: pointer; /* Pointer cursor */
-  outline: none; /* Remove highlight on focus */
+  position: relative;
+  float: center;
+  width: 200px;
+  margin-top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #c4b198;  /* Muted olive green */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
 }
 
 .generate-quote-button:hover {
-  color: #e5e6e7; /* Dark grey text */
-  background-color: #5169ba; /* Darker grey on hover */
+  color: #ffffff;
+  background-color: #e3c8ac;  /* Darker muted olive green on hover */
 }
-

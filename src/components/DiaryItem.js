@@ -10,7 +10,7 @@ export default function DiaryItem({ item, showModal, deleteItem }) {
                 <TiDeleteOutline
                     onClick={() => deleteItem(item.id)}
                     className='delete'
-                    style={{ color: 'red' }}
+                    style={{ color: 'brown' }}
                 />
             </div>
         </div>
