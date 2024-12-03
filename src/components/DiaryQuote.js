@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function DiaryQuote({ trigger }) {
     const [quote, setQuote] = useState("Loading..."); 
-    const [author, setAuthor] = useState("Loading..."); 
+    const [author, setAuthor] = useState(""); 
 
     useEffect(() => {
 
@@ -31,8 +31,8 @@ export default function DiaryQuote({ trigger }) {
 
     return (
         <div className="diary-quote">
-            <p>"{quote}"</p> 
-            <p>- {author}</p>
+            <p value = {quote}>"{quote}"</p> 
+            <p value = {author}>- {author}</p>
         </div>
     );
 }

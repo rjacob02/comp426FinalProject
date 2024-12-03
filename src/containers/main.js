@@ -45,11 +45,9 @@ export class main extends Component {
                         </div>
                         <DiaryForm addItem={addItem} onNewEntry={this.handleNewEntry}
                         />
-                        <button
-                        onClick = {this.handleNewEntry}
-                        className = "generate-quote-button"
-                        >Generate New Quote
-                        </button>
+                        <div className="button-container">
+                            <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
+                        </div>
                     </div>
 
                     {/* Right card */}
@@ -65,7 +63,11 @@ export class main extends Component {
                                     />
                                 )
                             })
-                        ) : <h1>No items</h1>}
+                        ) : <div>
+                                <h1>No items</h1>
+                                <p class="start-today">Start journaling today!</p>
+                            </div>
+                        }
                     </div>
 
                 </div>
@@ -79,6 +81,7 @@ export class main extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
+                            <p>hello</p>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{activeItem?.text}</Modal.Body>
