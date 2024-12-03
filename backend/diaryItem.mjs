@@ -1,3 +1,5 @@
+import { db } from "./db.mjs";
+
 export class DiaryItem {
 
     #id
@@ -14,28 +16,36 @@ export class DiaryItem {
         this.#body = body;
     }
 
-    static create(data) {
+    static async create(data) {
         if ((data !== undefined) && (data instanceof Object)
         && (data.title !== undefined) && (typeof data.title == 'string')
         && (data.body !== undefined) && (data.date !== undefined)) {
-            let id = DiaryItem.#next_id++;
-
-            let item = new DiaryItem(id, data.date, data.title, data.body);
-
-            // add user to all users
-            // return user
+            try {
+                let db_result = await db.run(
+                    'INSERT INTO entries (date, title, body) VALUES (?, ?, ?)', 
+                    data.date, 
+                    data.title, 
+                    data.body
+                );
+                let entry = new DiaryItem(db_result.lastId, data.date, data.title, data.body);
+                return entry;
+            } catch (e) {
+                console.log(e);
+                return [];
+            }
         }
-        
-
+    
     }
 
-    static getAllIds() {
-        
-    }
-
-    static findByID(id) {
-
-    }
+    static async getAll() {
+        try {
+            let rows = await db.all('SELECT * from entries');
+            return rows;
+        } catch (e) {
+            console.log(e);
+            return [];
+        }
+    } 
 
     json() {
         return {
