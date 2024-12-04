@@ -56,6 +56,7 @@ app.delete('/diary/:id', async (req, res) => {
   res.json(true);
 })
 
+//create a new user
 app.post('/user', async (req, res) => {
   let user = await User.create(req.body);
 
@@ -65,6 +66,18 @@ app.post('/user', async (req, res) => {
   }
 
   res.status(201).json(user.json());
+})
+
+//fetch user name by id
+app.get('/user/:id', async (req, res) => {
+  let user = await User.findByID(req.params.id);
+
+  if (!user) {
+    res.status(400).send("Bad request");
+    return;
+  }
+
+  res.status(201).json(user);
 })
 
 app.listen(port, () => {
