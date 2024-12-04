@@ -119,7 +119,7 @@ render() {
                     })
                 ) : <div>
                         <h1>No items</h1>
-                        <p class="start-today">Start journaling today!</p>
+                        <p className="start-today">Start journaling today!</p>
                     </div>
                 }
             </div>
