@@ -26,13 +26,6 @@ componentDidMount() {
     this.fetchEntries();
 }
 
-// handleNewEntry = () => {
-//     this.setState((prevState) => ({
-//         trigger: prevState.trigger+1, 
-//     })); 
-
-// };
-
 fetchEntries = async () => {
     const config = {
         headers: {
@@ -89,7 +82,7 @@ render() {
         <div className='grid-container'>
             {/* Left card */}
             <div className='diary-app'>
-                <h1>My Journal</h1>
+                <h1>Journal Heading</h1>
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
@@ -97,10 +90,15 @@ render() {
                     this.setState((prevState) => ({
                         trigger: prevState.trigger+1, 
                     })); 
-                    this.addNewItem(activeItem);
                 }}/>
                 <div className="button-container">
-                    <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
+                    <button onClick = {() => { 
+                        this.setState((prevState) => ({
+                            trigger: prevState.trigger+1, 
+                        })); 
+                    }} className = "generate-quote-button">
+                        Generate New Quote
+                    </button>
                 </div>
             </div>
 

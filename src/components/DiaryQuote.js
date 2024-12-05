@@ -31,8 +31,8 @@ export default function DiaryQuote({ trigger }) {
 
     return (
         <div className="diary-quote">
-            <p value = {quote}>"{quote}"</p> 
-            <p value = {author}>- {author}</p>
+            <p>"{quote}"</p> 
+            <p>- {author}</p>
         </div>
     );
 }

@@ -33,6 +33,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // create a new diary item
 app.post('/diary', async (req, res) => {
   console.log("BODY" + req.body);
+  console.log("POST FROM APP 2"); 
   let entry = await DiaryItem.create(req.body);
 
   console.log("ENTRY" + JSON.stringify(entry));
