@@ -1,10 +1,10 @@
 import React from 'react';
 import { TiDeleteOutline } from 'react-icons/ti';
 
-export default function DiaryItem({ item, deleteItem }) {
+export default function DiaryItem({ item, showModal, deleteItem }) {
     return (
         <div className='diary-row'>
-            <span>{item.title}</span>
+            <span onClick={() => showModal()}>{item.title}</span>
             <div>
                 <span className='date'>{item.date}</span>
                 <TiDeleteOutline
@@ -14,5 +14,5 @@ export default function DiaryItem({ item, deleteItem }) {
                 />
             </div>
         </div>
-    );
+    )
 }

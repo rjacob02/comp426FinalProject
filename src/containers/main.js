@@ -82,7 +82,7 @@ render() {
         <div className='grid-container'>
             {/* Left card */}
             <div className='diary-app'>
-                <h1>Journal Heading</h1>
+                <h1>My Journal</h1>
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
@@ -110,7 +110,6 @@ render() {
                             <DiaryItem
                                 deleteItem={this.deleteItem} 
                                 showModal={() => this.setState({ show: true, activeItem: item })}
-                                key={item.id}
                                 item={item}
                             />
                         )
