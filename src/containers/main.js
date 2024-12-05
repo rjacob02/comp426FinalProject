@@ -96,6 +96,7 @@ toggleDarkMode = () => {
 }
 
 render() {
+  
     const { show, activeItem, trigger, diaryItems, darkMode } = this.state;
     console.log(diaryItems);
 
