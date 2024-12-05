@@ -3,6 +3,8 @@
 
 This is a Diary Journal App developed using React for the frontend and Python and SQL for the backend. It allows users to create, view, and delete diary entries. The application showcases efficient component reusability, streamlined state handling, and a modern UI to manage and display user data.
 
+**Video Link:** https://youtu.be/_sSr9JVI_o8
+
 ## Features:
 Add, View, and Delete Entries: Users can create a new diary entry with a title, date, and description, and view or remove entries from the journal.
 Responsive UI: The app layout is optimized for multiple screen sizes, offering a seamless user experience.
