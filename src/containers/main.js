@@ -54,8 +54,9 @@ addNewItem = async (item) => {
             }
         }
         const response = await axios.post('http://localhost:3001/diary', item, config);
-        console.log("RES" + response);
+        console.log("RES: " + response);
         this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
+        console.log("RES TEXT: "+JSON.stringify(response.data.text)); 
     } catch (e) {
         console.error(e);
     }
@@ -130,10 +131,10 @@ render() {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
-                            <p>hello</p>
+                            <div class="diary-quote">quote will go here</div>
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{activeItem?.text}</Modal.Body>
+                    <Modal.Body>{activeItem?.body}</Modal.Body>
                     <Modal.Footer>
                         {activeItem?.date}
                     </Modal.Footer>
