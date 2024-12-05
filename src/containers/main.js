@@ -40,7 +40,6 @@ fetchEntries = async () => {
     }
     try {
         const response = await axios.get('http://localhost:3001/diary', config);
-        console.log("this is the response :)" + response);
         this.setState({ diaryItems: response.data });
     } catch (e) {
         console.error("this is the error :(" + e);
@@ -49,8 +48,6 @@ fetchEntries = async () => {
 
 addNewItem = async (item) => {
     try {
-        console.log("AB TO POST: " + JSON.stringify(item));
-
         const item_with_quote = {
             ...item,
             quote: currentQuote, 
@@ -65,12 +62,8 @@ addNewItem = async (item) => {
             }
         }
 
-        console.log("payload: "+item_with_quote.quote+" author: "+item_with_quote.author); 
-
         const response = await axios.post('http://localhost:3001/diary', item_with_quote, config);
-        console.log("RES: " + response);
         this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
-        console.log("RES TEXT: "+JSON.stringify(response.data.text)); 
     } catch (e) {
         console.error(e);
     }
@@ -162,7 +155,7 @@ render() {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
-                            <div class="diary-quote">"{activeItem?.quote}" -{activeItem?.author}</div>
+                            <div class="diary-quote-modal">"{activeItem?.quote}" -{activeItem?.author}</div>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{activeItem?.body}</Modal.Body>

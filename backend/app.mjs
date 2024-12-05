@@ -32,11 +32,8 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // create a new diary item
 app.post('/diary', async (req, res) => {
-  console.log("BODY" + JSON.stringify(req.body));
-  console.log("POST FROM APP"); 
   let entry = await DiaryItem.create(req.body);
 
-  console.log("ENTRY" + JSON.stringify(entry));
   if (!entry) {
     res.status(400).send("Bad request");
     return;
@@ -47,9 +44,7 @@ app.post('/diary', async (req, res) => {
 
 // delete
 app.delete('/diary/:id', async (req, res) => {
-  console.log("ENDPOINT");
   const item = await DiaryItem.deleteEntryById(req.params.id)
-  console.log(item);
   if (!item) {
       res.status(404).send("Entry not found");
       return;
