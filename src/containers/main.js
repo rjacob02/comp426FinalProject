@@ -86,7 +86,7 @@ render() {
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
-                <DiaryForm addItem={this.addNewItem} onNewEntry={() => { 
+                <DiaryForm fetchEntries={this.fetchEntries} addItem={this.addNewItem} onNewEntry={() => { 
                     this.setState((prevState) => ({
                         trigger: prevState.trigger+1, 
                     })); 

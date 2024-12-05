@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function DiaryForm({ addItem, onNewEntry }) {
+export default function DiaryForm({ fetchEntries, addItem, onNewEntry }) {
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [text, setText] = useState(""); 
@@ -14,7 +14,9 @@ export default function DiaryForm({ addItem, onNewEntry }) {
             text: text
         };
 
+        console.log('ITEM OBJ: ' + JSON.stringify(itemObject));
         addItem(itemObject);
+        fetchEntries();
 
         setTitle(""); 
         setDate(""); 
