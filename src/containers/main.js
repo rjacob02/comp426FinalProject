@@ -19,11 +19,15 @@ constructor() {
         activeItem: null,
         diaryItems: [],
         trigger: 0,
+        darkMode: localStorage.getItem('darkMode') === 'true'
     };
 }
 
 componentDidMount() {
     this.fetchEntries();
+    if (this.state.darkMode) {
+        document.body.classList.add('dark-mode');
+    }
 }
 
 fetchEntries = async () => {
@@ -85,12 +89,25 @@ deleteItem = async (id) => {
     this.setState({ diaryItems: this.state.diaryItems.filter(item => item.id !== id) });
 }
 
+toggleDarkMode = () => {
+    this.setState(prevState => {
+        const newDarkMode = !prevState.darkMode;
+        localStorage.setItem('darkMode', newDarkMode); 
+        if (newDarkMode) {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+        return { darkMode: newDarkMode };
+    });
+}
+
 render() {
-    const { show, activeItem, trigger, diaryItems } = this.state;
+    const { show, activeItem, trigger, diaryItems, darkMode } = this.state;
     console.log(diaryItems);
 
     return (
-        <div className='grid-container'>
+        <div className={`grid-container ${darkMode ? 'dark-mode' : ''}`}>
             {/* Left card */}
             <div className='diary-app'>
                 <h1>My Journal</h1>
@@ -110,6 +127,9 @@ render() {
                     }} className = "generate-quote-button">
                         Generate New Quote
                     </button>
+                    <button onClick={this.toggleDarkMode} className="dark-mode-button">
+                            Toggle Dark Mode
+                        </button>
                 </div>
             </div>
 
@@ -137,7 +157,8 @@ render() {
                     size="lg"
                     show={show}
                     onHide={() => this.setState({ show: false })}
-                    aria-labelledby="example-modal-sizes-title-lg">
+                    aria-labelledby="example-modal-sizes-title-lg"
+                    className={darkMode ? 'dark-mode' : ''}>
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
