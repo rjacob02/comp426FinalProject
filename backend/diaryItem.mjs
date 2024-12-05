@@ -21,12 +21,9 @@ export class DiaryItem {
     }
 
     static async create(data) {
-        console.log(data);
-        console.log(data !== undefined);
         if ((data !== undefined) && (typeof data == 'object')
         && (data.title !== undefined) && (typeof data.title == 'string')
         && (data.text !== undefined) && (data.date !== undefined)) {
-            console.log("Eneters");
             try {
                 let db_result = await db.run(
                     'INSERT INTO entries (date, title, body, quote, author) VALUES (?, ?, ?, ?, ?)', 
@@ -36,9 +33,7 @@ export class DiaryItem {
                     data.quote, 
                     data.author
                 );
-                console.log("DB RES" + JSON.stringify(db_result));
                 let entry = new DiaryItem(db_result.lastId, data.date, data.title, data.text, data.quote, data.author);
-                console.log("ENTRY: " + JSON.stringify(entry));
                 return entry;
             } catch (e) {
                 console.log("ERROR: " + e);

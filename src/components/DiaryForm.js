@@ -14,7 +14,6 @@ export default function DiaryForm({ fetchEntries, addItem, onNewEntry }) {
             text: text
         };
 
-        console.log('ITEM OBJ: ' + JSON.stringify(itemObject));
         addItem(itemObject);
         fetchEntries();
 
