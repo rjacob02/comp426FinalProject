@@ -1,5 +1,5 @@
-import React from 'react'
-import { TiDeleteOutline } from 'react-icons/ti'
+import React from 'react';
+import { TiDeleteOutline } from 'react-icons/ti';
 
 export default function DiaryItem({ item, showModal, deleteItem }) {
     return (

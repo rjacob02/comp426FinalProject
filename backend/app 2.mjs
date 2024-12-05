@@ -33,6 +33,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // create a new diary item
 app.post('/diary', async (req, res) => {
   console.log("BODY" + req.body);
+  console.log("POST FROM APP 2"); 
   let entry = await DiaryItem.create(req.body);
 
   console.log("ENTRY" + JSON.stringify(entry));
@@ -56,6 +57,7 @@ app.delete('/diary/:id', async (req, res) => {
   res.json(true);
 })
 
+//create a new user
 app.post('/user', async (req, res) => {
   let user = await User.create(req.body);
 
@@ -65,6 +67,18 @@ app.post('/user', async (req, res) => {
   }
 
   res.status(201).json(user.json());
+})
+
+//fetch user name by id
+app.get('/user/:id', async (req, res) => {
+  let user = await User.findByID(req.params.id);
+
+  if (!user) {
+    res.status(400).send("Bad request");
+    return;
+  }
+
+  res.status(201).json(user);
 })
 
 app.listen(port, () => {

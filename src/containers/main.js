@@ -26,13 +26,6 @@ componentDidMount() {
     this.fetchEntries();
 }
 
-// handleNewEntry = () => {
-//     this.setState((prevState) => ({
-//         trigger: prevState.trigger+1, 
-//     })); 
-
-// };
-
 fetchEntries = async () => {
     const config = {
         headers: {
@@ -61,8 +54,9 @@ addNewItem = async (item) => {
             }
         }
         const response = await axios.post('http://localhost:3001/diary', item, config);
-        console.log("RES" + response);
+        console.log("RES: " + response);
         this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
+        console.log("RES TEXT: "+JSON.stringify(response.data.text)); 
     } catch (e) {
         console.error(e);
     }
@@ -97,10 +91,15 @@ render() {
                     this.setState((prevState) => ({
                         trigger: prevState.trigger+1, 
                     })); 
-                    console.log("ACTOVE" + activeItem);
                 }}/>
                 <div className="button-container">
-                    <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>
+                    <button onClick = {() => { 
+                        this.setState((prevState) => ({
+                            trigger: prevState.trigger+1, 
+                        })); 
+                    }} className = "generate-quote-button">
+                        Generate New Quote
+                    </button>
                 </div>
             </div>
 
@@ -112,14 +111,13 @@ render() {
                             <DiaryItem
                                 deleteItem={this.deleteItem} 
                                 showModal={() => this.setState({ show: true, activeItem: item })}
-                                key={item.id}
                                 item={item}
                             />
                         )
                     })
                 ) : <div>
                         <h1>No items</h1>
-                        <p class="start-today">Start journaling today!</p>
+                        <p className="start-today">Start journaling today!</p>
                     </div>
                 }
             </div>
@@ -133,10 +131,10 @@ render() {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
-                            <p>hello</p>
+                            <div class="diary-quote">quote will go here</div>
                         </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{activeItem?.text}</Modal.Body>
+                    <Modal.Body>{activeItem?.body}</Modal.Body>
                     <Modal.Footer>
                         {activeItem?.date}
                     </Modal.Footer>
