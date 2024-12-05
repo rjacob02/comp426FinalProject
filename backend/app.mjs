@@ -35,6 +35,7 @@ app.post('/diary', async (req, res) => {
   console.log("BODY" + req.body);
   let entry = await DiaryItem.create(req.body);
 
+
   console.log("ENTRY" + JSON.stringify(entry));
   if (!entry) {
     res.status(400).send("Bad request");

@@ -93,11 +93,11 @@ render() {
                 <div>
                     <DiaryQuote trigger={trigger}/>
                 </div>
-                <DiaryForm addItem={this.addNewItem} onNewEntry={() => { 
+                <DiaryForm fetchEntries={this.fetchEntries} addItem={this.addNewItem} onNewEntry={() => { 
                     this.setState((prevState) => ({
                         trigger: prevState.trigger+1, 
                     })); 
-                    this.addNewItem(activeItem);
+                    console.log("ACTOVE" + activeItem);
                 }}/>
                 <div className="button-container">
                     <button onClick = {this.handleNewEntry} className = "generate-quote-button">Generate New Quote</button>

@@ -32,9 +32,10 @@ export class DiaryItem {
                 );
                 console.log("DB RES" + JSON.stringify(db_result));
                 let entry = new DiaryItem(db_result.lastId, data.date, data.title, data.text);
+                console.log("ENTRY: " + JSON.stringify(entry));
                 return entry;
             } catch (e) {
-                console.log(e);
+                console.log("ERROR: " + e);
                 return [];
             }
         }
