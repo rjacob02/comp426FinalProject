@@ -1,5 +1,5 @@
-import DiaryQuote from '../components/DiaryQuote'
-import React, { Component, act } from 'react';
+import DiaryQuote, { currentQuote, currentAuthor } from '../components/DiaryQuote'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import DiaryForm from '../components/DiaryForm';
@@ -46,6 +46,13 @@ fetchEntries = async () => {
 addNewItem = async (item) => {
     try {
         console.log("AB TO POST: " + JSON.stringify(item));
+
+        const item_with_quote = {
+            ...item,
+            quote: currentQuote, 
+            author: currentAuthor
+        };
+
         const config = {
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -53,7 +60,10 @@ addNewItem = async (item) => {
                 "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
             }
         }
-        const response = await axios.post('http://localhost:3001/diary', item, config);
+
+        console.log("payload: "+item_with_quote.quote+" author: "+item_with_quote.author); 
+
+        const response = await axios.post('http://localhost:3001/diary', item_with_quote, config);
         console.log("RES: " + response);
         this.setState({ diaryItems: [response.data, ...this.state.diaryItems] });
         console.log("RES TEXT: "+JSON.stringify(response.data.text)); 
@@ -131,7 +141,7 @@ render() {
                     <Modal.Header closeButton>
                         <Modal.Title id="example-modal-sizes-title-lg">
                             {activeItem?.title}
-                            <div class="diary-quote">quote will go here</div>
+                            <div class="diary-quote">"{activeItem?.quote}" -{activeItem?.author}</div>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{activeItem?.body}</Modal.Body>
