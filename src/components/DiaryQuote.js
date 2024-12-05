@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+let currentQuote = "no quote yet"; 
+let currentAuthor = "Anonymous"; 
+
 export default function DiaryQuote({ trigger }) {
     const [quote, setQuote] = useState("Loading..."); 
     const [author, setAuthor] = useState(""); 
@@ -20,6 +23,8 @@ export default function DiaryQuote({ trigger }) {
                 const data = response.data;
                 setQuote(data.quote || "Default quote"); 
                 setAuthor(data.author || "Anonomous"); 
+                currentQuote = data.quote || "Default quote";
+                currentAuthor = data.author || "Anonymous"; 
             } catch (error) {
                 console.error("Error fetching quote:", error);
                 setQuote("Failed to fetch quote"); 
@@ -36,3 +41,5 @@ export default function DiaryQuote({ trigger }) {
         </div>
     );
 }
+
+export { currentQuote, currentAuthor }; 
